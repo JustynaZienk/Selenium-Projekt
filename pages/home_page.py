@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
+from pages.cart_page import CartPage
 from pages.create_account_page import CreateAccountPage
 from pages.log_in_page import LoginPage
 from pages.phone_page import PhonePage
@@ -16,6 +17,8 @@ class Locators:
     LOG_IN = (By.ID, 'login2')
     LOGGED_IN = (By.ID, 'nameofuser')
     PHONES = (By.XPATH,"//a[contains(@onclick,'phone')]" )
+    CART = (By.ID, "cartur")
+    PRODUCT_STORE_BTN =(By.XPATH,'//a[@class="navbar-brand"]')
 class HomePage(BasePage):
     """
     Home Page Object
@@ -31,9 +34,12 @@ class HomePage(BasePage):
 
     def click_log_in(self):
         """
-        Click log in button and displays LOGIN pop-up window
+        Wait for invisible signInModal and  then Click log in button and displays LOGIN pop-up window
 
         """
+        WebDriverWait(self.driver, 10).until(
+            EC.invisibility_of_element_located((By.ID, "signInModal"))
+        )
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.LOG_IN)).click()
         return LoginPage(self.driver)
 
@@ -56,6 +62,13 @@ class HomePage(BasePage):
                 continue
 
         raise Exception("Unabale to click phone button")
+
+    def click_cart(self):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.CART)).click()
+        return CartPage(self.driver)
+
+    def click_product_store(self):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.PRODUCT_STORE_BTN)).click()
 
     def _verify_page(self):
         WebDriverWait(self.driver, 10).until(EC.title_is("STORE"))
