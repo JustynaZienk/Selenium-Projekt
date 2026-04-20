@@ -10,6 +10,7 @@ class Locators:
     """
     PRODUCT_NAME =(By.XPATH,"//td[2]")
     PRODUCT_PRICE =(By.XPATH,"//td[3]")
+    PLACE_ORDER_BTN= (By.XPATH,"//button[@class='btn btn-success']")
 class CartPage(BasePage):
     """
     Page object for CartPage
@@ -20,3 +21,9 @@ class CartPage(BasePage):
     def get_product_prices(self):
         prices=WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located(Locators.PRODUCT_PRICE))
         return [int(price.text) for price in prices]
+
+    def get_total_price(self):
+        return sum(self.get_product_prices())
+
+    def click_place_order(self):
+        self.driver.find_element(*Locators.PLACE_ORDER_BTN).click()
