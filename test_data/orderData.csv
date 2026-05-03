@@ -1,0 +1,4 @@
+﻿scenario,name,country,city,creditcard,month,year
+NoNameInPlaceOrder,,Poland,Warsaw,4532-XXXX-XXXX-1234,1,2023
+NoCreditCardInPlaceOrder,Anna Nowak,Poland,Krakow,,5,2024
+ValidUser,John Smith,USA,New York,4111-XXXX-XXXX-1111,7,2022

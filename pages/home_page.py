@@ -33,14 +33,17 @@ class HomePage(BasePage):
         return CreateAccountPage(self.driver)
 
     def click_log_in(self):
-        """
-        Wait for invisible signInModal and  then Click log in button and displays LOGIN pop-up window
+        self.driver.find_element(By.TAG_NAME, "body").click()
 
-        """
         WebDriverWait(self.driver, 10).until(
-            EC.invisibility_of_element_located((By.ID, "signInModal"))
+            EC.presence_of_element_located(Locators.LOG_IN)
         )
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.LOG_IN)).click()
+
+        element = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.LOG_IN)
+        )
+
+        element.click()
         return LoginPage(self.driver)
 
     def is_user_logged_in(self):

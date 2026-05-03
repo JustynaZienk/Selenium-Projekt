@@ -3,6 +3,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
+from pages.place_order_page import PlaceOrderPage
+
 
 class Locators:
     """
@@ -27,3 +29,4 @@ class CartPage(BasePage):
 
     def click_place_order(self):
         self.driver.find_element(*Locators.PLACE_ORDER_BTN).click()
+        return PlaceOrderPage(self.driver)

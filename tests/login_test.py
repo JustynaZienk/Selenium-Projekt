@@ -38,7 +38,7 @@ class LoginTest(BaseTest):
         self.log_in_page.enter_password(self.data.PASSWORD)
         self.log_in_page.click_login_btn()
         sleep(4)
-        assert self.home_page.is_user_logged_in()
+        self.assertTrue(self.home_page.is_user_logged_in())
 
 
 
