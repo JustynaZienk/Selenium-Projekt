@@ -1,5 +1,7 @@
+import time
 from time import sleep
 
+from selenium.webdriver.common import alert
 from selenium.webdriver.support.wait import WebDriverWait
 
 import test_data.place_order_data
@@ -119,7 +121,6 @@ class PurchaseTest(BaseTest):
         self.samsung_galaxy_s6_page.click_product_added_alert()
         self.cart_page = self.home_page.click_cart()
         self.place_order_page=self.cart_page.click_place_order()
-        sleep(3)
         #ddt
         self.place_order_page.enter_name(name)
         self.place_order_page.enter_country(country)
@@ -127,21 +128,19 @@ class PurchaseTest(BaseTest):
         self.place_order_page.enter_creditcard(creditcard)
         self.place_order_page.enter_month(month)
         self.place_order_page.enter_year(year)
-        print("NAME:", name)
-        print("CITY:", city)
-        print("CARD:", creditcard)
+        sleep(3)
         self.place_order_page.click_purchase_btn()
 
         expected_error = "Please fill out Name and Creditcard."
         actual_error= self.place_order_page.get_error_alert()
-        print("ERROR:", actual_error)
+
 
         if scenario == "NoNameInPlaceOrder":
             self.assertEqual(expected_error,actual_error)
         elif scenario == "NoCreditcardInPlaceOrder":
             self.assertEqual(expected_error,actual_error)
         elif scenario == "ValidUser":
-            self.assertEqual("", actual_error)
+            self.assertIsNone(actual_error)
 
 
 

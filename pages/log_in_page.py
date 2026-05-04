@@ -1,6 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.expected_conditions import alert_is_present
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
@@ -12,6 +13,7 @@ class Locators:
     USERNAME = (By.ID, "loginusername")
     PASSWORD = (By.ID, "loginpassword")
     LOGIN_BTN= (By.XPATH, "//button[@onclick='logIn()']")
+    LOGIN_WINDOW=(By.ID, "logInModal")
 
 class LoginPage(BasePage):
     """
@@ -19,21 +21,30 @@ class LoginPage(BasePage):
     """
 
     def enter_username(self, username):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.LOGIN_BTN))
+        element=WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Locators.USERNAME))
 
-        self.driver.find_element(*Locators.USERNAME).send_keys(username)
+        element.clear()
+        element.send_keys(username)
 
     def enter_password(self, password):
-        self.driver.find_element(*Locators.PASSWORD).send_keys(password)
+        element = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(Locators.PASSWORD))
+        element.clear()
+        element.send_keys(password)
 
     def click_login_btn(self):
-        self.driver.find_element(*Locators.LOGIN_BTN).click()
+        element = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(Locators.LOGIN_BTN)
+        )
+        element.click()
+
 
     def get_error_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        text = alert.text
-        alert.accept()
-        return text
+            WebDriverWait(self.driver, 10).until(EC.alert_is_present())
+            alert = self.driver.switch_to.alert
+            text = alert.text
+            alert.accept()
+            return text
 
     def click_login_alert(self):
         alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())

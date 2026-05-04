@@ -15,10 +15,6 @@ class BaseTest(unittest.TestCase):
         self.driver.maximize_window()
         self.driver.get("https://demoblaze.com/")
         self.home_page = HomePage(self.driver)
-        sleep(3)
-
-
-
 
     def tearDown(self):
         self.driver.quit()

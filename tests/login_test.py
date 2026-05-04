@@ -22,7 +22,7 @@ class LoginTest(BaseTest):
         self.log_in_page = self.home_page.click_log_in()
         self.log_in_page.enter_username(self.data.USERNAME)
         self.log_in_page.click_login_btn()
-        sleep(4)
+        sleep(3)
         expected_error = "Please fill out Username and Password."
         actual_error = self.log_in_page.get_error_alert()
         self.assertEqual(expected_error, actual_error)

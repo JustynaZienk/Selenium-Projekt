@@ -20,22 +20,31 @@ class PlaceOrderPage(BasePage):
     PlaceOrderPage Object
     """
     def enter_name(self, name):
+        WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((Locators.NAME)))
         self.driver.find_element(*Locators.NAME).send_keys(name)
     def enter_country(self, country):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((Locators.COUNTRY)))
         self.driver.find_element(*Locators.COUNTRY).send_keys(country)
     def enter_city(self, city):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((Locators.CITY)))
         self.driver.find_element(*Locators.CITY).send_keys(city)
     def enter_creditcard(self, creditcard):
-        self.driver.find_element(*Locators.CREDIT_CARD).click()
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((Locators.CREDIT_CARD)))
+        self.driver.find_element(*Locators.CREDIT_CARD).send_keys(creditcard)
     def enter_month(self, month):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((Locators.MONTH)))
         self.driver.find_element(*Locators.MONTH).send_keys(month)
     def enter_year(self, year):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((Locators.YEAR)))
         self.driver.find_element(*Locators.YEAR).send_keys(year)
     def click_purchase_btn(self):
         self.driver.find_element(*Locators.PURCHASE_BTN).click()
     def get_error_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        text = alert.text
-        alert.accept()
-        return text
+        try:
+            alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
+            text = alert.text
+            alert.accept()
+            return text
+        except:
+            return None
 

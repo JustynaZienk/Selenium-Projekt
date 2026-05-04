@@ -31,7 +31,8 @@ class CreateAccountPage(BasePage):
         self.driver.find_element(*Locators.PASSWORD).send_keys(password)
 
     def click_signup(self):
-        self.driver.find_element(*Locators.SIGN_UP).click()
+        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.SIGN_UP))
+        element.click()
 
 
     def get_error_alert(self):
