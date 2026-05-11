@@ -56,7 +56,7 @@ class PurchaseTest(BaseTest):
         actual_result= self.cart_page.get_product_prices()
         self.assertIn(expected_result, actual_result)
 
-    def testAddedTwoItemToCart(self):
+    def testAddedTwoItemsToCart(self):
         self.create_account_page = self.home_page.click_sign_up()
         self.create_account_page.enter_username(self.data.USERNAME)
         self.create_account_page.enter_password(self.data.PASSWORD)
