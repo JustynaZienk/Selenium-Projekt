@@ -15,8 +15,7 @@ class NokiaLumia1520(BasePage):
     Nokia Lumia S6 Page Object
     """
     def click_add_to_cart(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.ADD_TO_CART)).click()
+        self.click(Locators.ADD_TO_CART)
 
     def click_product_added_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        alert.accept()
+        self.accept_alert()

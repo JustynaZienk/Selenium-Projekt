@@ -19,7 +19,7 @@ Projekt automatyzuje najważniejsze funkcjonalności sklepu internetowego:
 
 - Python
 - Selenium WebDriver
-- Unittest
+- Pytest fixture
 - ChromeDriver
 - Page Object Model (POM)
 - DDT

@@ -1,6 +1,6 @@
-from selenium.webdriver.support import expected_conditions as EC
+
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
+
 from pages.base_page import BasePage
 
 class Locators:
@@ -21,29 +21,26 @@ class CreateAccountPage(BasePage):
         """
         enter username
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.PASSWORD))
-        self.driver.find_element(*Locators.USERNAME).send_keys(username)
+        self.type(Locators.USERNAME, username)
     def enter_password(self, password):
         """
         enter password
         """
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.PASSWORD))
-        self.driver.find_element(*Locators.PASSWORD).send_keys(password)
-
+        self.type(Locators.PASSWORD, password)
     def click_signup(self):
-        element = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.SIGN_UP))
-        element.click()
+        self.click(Locators.SIGN_UP)
 
 
     def get_error_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        text = alert.text
-        alert.accept()
-        return text
+        return self.get_alert_text()
+
     def click_signup_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        alert.accept()
+        self.accept_alert()
+
     def _verify_page(self):
-       WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.SIGN_UP))
+        """
+        Check if sing up page exists
+        """
+        self.is_visible(Locators.SIGN_UP)
 
 

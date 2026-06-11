@@ -19,6 +19,8 @@ class Locators:
     PHONES = (By.XPATH,"//a[contains(@onclick,'phone')]" )
     CART = (By.ID, "cartur")
     PRODUCT_STORE_BTN =(By.XPATH,'//a[@class="navbar-brand"]')
+    CART_2BTN = (By.XPATH, "//a[@onclick='showcart()']")
+
 class HomePage(BasePage):
     """
     Home Page Object
@@ -29,49 +31,41 @@ class HomePage(BasePage):
         Click sign up button and displays SIGN UP pop-up window
         """
 
-        self.driver.find_element(*Locators.SIGN_UP).click()
+        self.click(Locators.SIGN_UP)
         return CreateAccountPage(self.driver)
 
     def click_log_in(self):
-        self.driver.find_element(By.TAG_NAME, "body").click()
+        """
+        Click login button and displays LOGIN pop-up window
+        """
+        self.click_body()
+        self.click(Locators.LOG_IN)
 
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(Locators.LOG_IN)
-        )
-
-        element = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(Locators.LOG_IN)
-        )
-
-        element.click()
         return LoginPage(self.driver)
 
     def is_user_logged_in(self):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Locators.LOGGED_IN)).is_displayed()
-        return True
+        """
+        Check if user logged in
+        """
+        return self.is_visible(Locators.LOGGED_IN)
 
     def click_phones(self):
         """
         Click phone button and displays available PHONES
         """
-        wait = WebDriverWait(self.driver, 10)
+        self.click(Locators.PHONES)
+        return PhonePage(self.driver)
 
-        for i in range(5):
-            try:
-                phones = wait.until(EC.element_to_be_clickable(Locators.PHONES))
-                phones.click()
-                return PhonePage(self.driver)
-            except StaleElementReferenceException:
-                continue
-
-        raise Exception("Unabale to click phone button")
 
     def click_cart(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.CART)).click()
+        self.click(Locators.CART)
         return CartPage(self.driver)
 
+    def click_cart_btn(self):
+        self.click(Locators.CART_2BTN)
+        return CartPage(self.driver)
     def click_product_store(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.PRODUCT_STORE_BTN)).click()
+        self.click(Locators.PRODUCT_STORE_BTN)
 
     def _verify_page(self):
-        WebDriverWait(self.driver, 10).until(EC.title_is("STORE"))
+        self.is_visible(Locators.SIGN_UP)

@@ -18,8 +18,9 @@ class PhonePage(BasePage):
     Phone Page Object
     """
     def click_samsung_galaxyS6(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.SAMSUNG_GALAXY_S6)).click()
+        self.click(Locators.SAMSUNG_GALAXY_S6)
         return SamsungGalaxyS6(self.driver)
+
     def click_nokia_lumia_1520(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.NOKIA_LUMIA_1520)).click()
+        self.click(Locators.NOKIA_LUMIA_1520)
         return NokiaLumia1520(self.driver)

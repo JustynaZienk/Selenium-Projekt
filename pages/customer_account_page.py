@@ -16,4 +16,4 @@ class CustomerAccountPage(BasePage):
         """
         Add item to cart
         """
-        self.driver.find_element(*Locators.PHONES).click()
+        self.click(Locators.PHONES_BTN)

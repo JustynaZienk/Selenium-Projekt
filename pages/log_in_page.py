@@ -21,36 +21,39 @@ class LoginPage(BasePage):
     """
 
     def enter_username(self, username):
-        element=WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Locators.USERNAME))
-
-        element.clear()
-        element.send_keys(username)
+        """
+        Enter username
+        """
+        self.type(Locators.USERNAME, username)
 
     def enter_password(self, password):
-        element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(Locators.PASSWORD))
-        element.clear()
-        element.send_keys(password)
+        """
+        Enter password
+        """
+        self.type(Locators.PASSWORD, password)
 
     def click_login_btn(self):
-        element = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(Locators.LOGIN_BTN)
-        )
-        element.click()
-
+        """
+        Click login button
+        """
+        self.click(Locators.LOGIN_BTN)
 
     def get_error_alert(self):
-            WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-            alert = self.driver.switch_to.alert
-            text = alert.text
-            alert.accept()
-            return text
+        """
+        Get alert text
+        """
+        return self.get_alert_text()
 
     def click_login_alert(self):
-        alert = WebDriverWait(self.driver, 10).until(EC.alert_is_present())
-        alert.accept()
-    def _verify_page(self):
+        """
+        Accept alert
+        """
+        self.accept_alert()
 
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(Locators.LOGIN_BTN))
+    def _verify_page(self):
+        """
+        Verify login button is visible
+        """
+        self.is_visible(Locators.LOGIN_BTN)
 
 
